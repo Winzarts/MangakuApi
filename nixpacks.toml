@@ -7,7 +7,6 @@ nixPkgs = [
   "atk",
   "cups",
   "dbus",
-  "drm",
   "libxkbcommon",
   "pango",
   "cairo",
