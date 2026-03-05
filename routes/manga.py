@@ -35,12 +35,12 @@ def get_manga_detail(slug):
     
     genres = [g.text.strip() for g in soup.select("ul.genre li span")]
     
-    short_description = ""
+    description = ""
     for row in soup.select("table.inftable tr"):
         cols = row.find_all("td")
         if len(cols) >= 2:
             if cols[0].text.strip() == "Judul Indonesia":
-                short_description = cols[1].text.strip()
+                description = cols[1].text.strip()
 
     chapter_list = []
     for row in soup.select('#Daftar_Chapter tbody tr'):
@@ -71,8 +71,7 @@ def get_manga_detail(slug):
         "title": title,
         "indonesia_title": indonesia_title,
         "image_url": image_url,
-        "short_description" : short_description,
-        "long_description": long_description,
+        "description" : description,
         "sinopsis": sinopsis,
         "genres" : genres,
         "chapters": chapter_list
