@@ -7,28 +7,45 @@ list_bp = Blueprint("list", __name__)
 
 def _parse_ls4_items(soup):
     manga_list = []
-    for item in soup.select('div.ls4'):
-        a_title = item.select_one('h4 a')
-        img = item.select_one('div.ls4v img.lazy')
-        span_genre = item.select('span.ls4s')
 
-        if not a_title:
+    for item in soup.select("article.manga-card"):
+        title_tag = item.select_one("h4 a")
+        img_tag = item.select_one("img.lazy")
+        meta_tag = item.select_one("p.meta")
+
+        if not title_tag:
             continue
 
-        title = a_title.text.strip()
-        manga_url = f"{API_BASE}{a_title['href']}"
+        title = title_tag.text.strip()
+        raw_link = title_tag["href"]
+        url = f"{API_BASE}{raw_link}" if raw_link.startswith("/") else raw_link
 
-        genres = []
-        for g in span_genre:
-            text = g.text.replace('Genre : ', '').strip()
-            genres.extend([x.strip() for x in text.split(',') if x.strip()])
+        thumbnail = img_tag.get("data-src") if img_tag else None
+
+        type_manga = ""
+        genre = ""
+        status = ""
+
+        if meta_tag:
+            lines = meta_tag.get_text("\n", strip=True).split("\n")
+
+            if len(lines) >= 1:
+                parts = lines[0].split("•")
+                type_manga = parts[0].strip() if len(parts) > 0 else ""
+                genre = parts[1].strip() if len(parts) > 1 else ""
+
+            if len(lines) >= 2:
+                status = lines[1].replace("Status:", "").strip()
 
         manga_list.append({
             "title": title,
-            "url": manga_url,
-            "thumbnail": img.get('data-src') if img else None,
-            "genres": genres
+            "url": url,
+            "thumbnail": thumbnail,
+            "type": type_manga,
+            "genre": genre,
+            "status": status
         })
+
     return manga_list
 
 
