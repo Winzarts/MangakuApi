@@ -73,15 +73,8 @@ def get_manga_by_genre(slug):
                 genre_tag = manga.select_one("div.tpe1_inf")
                 genre_text = genre_tag.get_text(strip=True).replace(tipe, "").strip() if genre_tag else ""
 
-                pembaca_tag = manga.select_one("span.judul2 span b")
-                pembaca = pembaca_tag.get_text(strip=True) if pembaca_tag else ""
-
-                waktu_tag = manga.select_one("span.judul2")
-                waktu = ""
-                if waktu_tag:
-                    teks = waktu_tag.get_text(strip=True)
-                    if "|" in teks:
-                        waktu = teks.split("|")[1].strip()
+                reader_tag = manga.select_one("span.judul2")
+                readers = reader_tag.get_text(strip=True) if reader_tag else ""
 
                 deskripsi_tag = manga.select_one("div.kan p")
                 deskripsi = deskripsi_tag.get_text(strip=True) if deskripsi_tag else ""
@@ -94,8 +87,7 @@ def get_manga_by_genre(slug):
                     "title": title,
                     "type": tipe,
                     "genre": genre_text,
-                    "readers": pembaca,
-                    "updated": waktu,
+                    "readers": readers,
                     "description": deskripsi,
                     "thumbnail": img,
                     "link": link,
