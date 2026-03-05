@@ -90,10 +90,11 @@ def get_manga_content(slug, chapter_slug):
     chapter_title = title_elem.text.strip() if title_elem else None
     
     page_image = []
-    for img in soup.select("#Baca_Komik img.lazy"):
-        src = img.get("src")
-        if src and src.startswith("https://img.komiku.org"):
-            page_image.append(src.strip())
+
+for img in soup.select("#Baca_Komik img"):
+    src = img.get("src") or img.get("data-src") or img.get("data-lazy-src")
+    if src and "komiku" in src:
+        page_image.append(src.strip())
 
     return jsonify({
         "title": chapter_title,
