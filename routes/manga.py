@@ -25,7 +25,7 @@ def get_manga_detail(slug):
     title = title_tag.text.strip() if title_tag else None
 
     indonesia_title_tag = soup.select_one('#Judul p.j2')
-    indonesia_title = short_desc_tag.text.strip() if short_desc_tag else None
+    indonesia_title = indonesia_title_tag.text.strip() if short_desc_tag else None
     
     img_tag = soup.select_one('.ims img')
     image_url = img_tag['src'] if img_tag else None
