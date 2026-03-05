@@ -14,6 +14,5 @@ nixPkgs = [
   "alsa-lib",
   "libdrm",
   "libxshmfence",
-  "mesa",
-  "libgbm"
+  "mesa"
 ]
