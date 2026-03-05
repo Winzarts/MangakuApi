@@ -90,7 +90,7 @@ def get_manga_content(slug, chapter_slug):
     chapter_title = title_elem.text.strip() if title_elem else chapter_slug
     
     page_image = []
-    for img in soup.select("#Baca_Komik img.lazy"):
+    for img in soup.select("#Baca_Komik img.klazy"):
         src = img.get("src")
         if src and src.startswith("https://img.komiku.org"):
             page_image.append(src.strip())
