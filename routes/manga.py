@@ -7,7 +7,7 @@ manga_bp = Blueprint('manga', __name__)
 
 @manga_bp.route('/manga/<slug>/', methods=['GET'])
 def get_manga_detail(slug):
-    url = f"{BASE_URL}/manga/slug"
+    url = f"{BASE_URL}/manga/{slug}"
 
     try:
         resp = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
