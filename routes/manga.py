@@ -21,7 +21,7 @@ def get_manga_detail(slug):
 
     soup = BeautifulSoup(resp.text, 'html.parser')
     
-    title_tag = soup.select_one('#Judul span[itemprop="name"]')
+    title_tag = soup.select_one("#Judul h1 span")
     title = title_tag.text.strip() if title_tag else None
 
     indonesia_title_tag = soup.select_one('#Judul p.j2')
