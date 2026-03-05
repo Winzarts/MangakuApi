@@ -1,5 +1,6 @@
 [phases.setup]
 nixPkgs = [
+  "python311",
   "chromium",
   "glib",
   "nss",
@@ -10,5 +11,9 @@ nixPkgs = [
   "libxkbcommon",
   "pango",
   "cairo",
-  "alsa-lib"
+  "alsa-lib",
+  "libdrm",
+  "libxshmfence",
+  "mesa",
+  "libgbm"
 ]
