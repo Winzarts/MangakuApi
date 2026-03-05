@@ -24,17 +24,23 @@ def get_manga_detail(slug):
     title_tag = soup.select_one('#Judul span[itemprop="name"]')
     title = title_tag.text.strip() if title_tag else None
 
-    short_desc_tag = soup.select_one('#Judul p.j2')
-    short_description = short_desc_tag.text.strip() if short_desc_tag else None
-
-    img_tag = soup.select_one('div.ims img')
+    indonesia_title_tag = soup.select_one('#Judul p.j2')
+    indonesia_title = short_desc_tag.text.strip() if short_desc_tag else None
+    
+    img_tag = soup.select_one('.ims img')
     image_url = img_tag['src'] if img_tag else None
-
-    long_desc_tag = soup.select_one('#Judul p[itemprop="description"]')
-    long_description = long_desc_tag.text.strip() if long_desc_tag else ""
-
-    sinopsis_tag = soup.select_one('#Judul p.desc')
+    
+    sinopsis_tag = soup.select_one('p.desc')
     sinopsis = sinopsis_tag.text.strip() if sinopsis_tag else ""
+    
+    genres = [g.text.strip() for g in soup.select("ul.genre li span")]
+    
+    short_description = ""
+    for row in soup.select("table.inftable tr"):
+        cols = row.find_all("td")
+        if len(cols) >= 2:
+            if cols[0].text.strip() == "Judul Indonesia":
+                short_description = cols[1].text.strip()
 
     chapter_list = []
     for row in soup.select('#Daftar_Chapter tbody tr'):
@@ -63,10 +69,12 @@ def get_manga_detail(slug):
 
     return jsonify({
         "title": title,
-        "short_description": short_description,
+        "Indonesia_title": Indonesia_title,
         "image_url": image_url,
+        "short_description" : short_description,
         "long_description": long_description,
         "sinopsis": sinopsis,
+        "genres" : genres
         "chapters": chapter_list
     })
 
