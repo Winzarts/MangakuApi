@@ -69,12 +69,12 @@ def get_manga_detail(slug):
 
     return jsonify({
         "title": title,
-        "Indonesia_title": Indonesia_title,
+        "indonesia_title": indonesia_title,
         "image_url": image_url,
         "short_description" : short_description,
         "long_description": long_description,
         "sinopsis": sinopsis,
-        "genres" : genres
+        "genres" : genres,
         "chapters": chapter_list
     })
 
