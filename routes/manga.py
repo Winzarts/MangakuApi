@@ -87,7 +87,8 @@ def get_manga_content(slug, chapter_slug):
     soup = BeautifulSoup(resp.text, 'html.parser')
 
     title_elem = soup.select_one("#Judul header h1")
-    chapter_title = title_elem.text.strip() if title_elem else None
+    chapter_title = title_elem.text.strip() if title_elem chapter_slug
+    
     
     page_image = []
 
