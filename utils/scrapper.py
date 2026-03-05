@@ -3,11 +3,20 @@ from config import HEADERS, TIMEOUT
 
 def get_dynamic_html(url: str) -> str:
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu"
+            ]
+        )
+
         context = browser.new_context(
-            user_agent=HEADERS['User-Agent'],
+            user_agent=HEADERS["User-Agent"],
             viewport={"width": 1920, "height": 1080}
         )
+
         page = context.new_page()
 
         try:
