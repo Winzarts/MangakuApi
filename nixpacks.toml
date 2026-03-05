@@ -13,6 +13,5 @@ nixPkgs = [
   "cairo",
   "alsa-lib",
   "libdrm",
-  "libxshmfence",
   "mesa"
 ]
