@@ -62,6 +62,7 @@ def get_manga_detail(slug):
 
         chapter_list.append({
             "title": chapter_title,
+            "slug": chapter_slug,
             "url": chapter_url,
             "views": views,
             "date": date
