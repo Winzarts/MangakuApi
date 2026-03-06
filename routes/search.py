@@ -33,6 +33,7 @@ def search_komik():
         title = title_tag.get_text(strip=True)
         raw_link = link_tag.get("href", "")
         link = f"{API_BASE}{raw_link}" if raw_link.startswith('/') else raw_link
+        slug = raw_link.strip('/').split('/')[-1]
         img = img_tag.get("src")
 
         tipe_tag = manga.select_one("div.tpe1_inf b")
@@ -46,6 +47,7 @@ def search_komik():
 
         manga_list.append({
             "title": title,
+            "slug": slug,
             "type": tipe,
             "genre": genre_text,
             "description": deskripsi,
