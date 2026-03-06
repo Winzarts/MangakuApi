@@ -65,6 +65,7 @@ def get_manga_by_genre(slug):
                 title = title_tag.get_text(strip=True)
                 raw_link = link_tag["href"]
                 link = f"{API_BASE}{raw_link}" if raw_link.startswith('/') else raw_link
+                slug_comic = raw_link.strip('/').split('/')[-1]
                 img = img_tag["src"]
 
                 tipe_tag = manga.select_one("div.tpe1_inf b")
@@ -85,6 +86,7 @@ def get_manga_by_genre(slug):
 
                 manga_list.append({
                     "title": title,
+                    "slug": slug_comic,
                     "type": tipe,
                     "genre": genre_text,
                     "readers": readers,
