@@ -17,6 +17,7 @@ def _parse_popular_items(soup):
         title = title_tag.get_text(strip=True)
         raw_link = link_tag["href"]
         link = f"{API_BASE}{raw_link}" if raw_link.startswith('/') else raw_link
+        slug = raw_link.strip('/').split('/')[-1]
         img = img_tag["src"]
         tipe = manga.select_one("div.tpe1_inf b").get_text(strip=True)
         genre = manga.select_one("div.tpe1_inf").get_text(strip=True).replace(tipe, "").strip()
@@ -31,6 +32,7 @@ def _parse_popular_items(soup):
 
         manga_list.append({
             "title": title,
+            "slug": slug,
             "type": tipe,
             "genre": genre,
             "readers": pembaca,
