@@ -20,9 +20,20 @@ def get_dynamic_html(url: str) -> str:
         page = context.new_page()
 
         try:
-            page.goto(url, timeout=TIMEOUT * 1000)
-            page.wait_for_selector("div.bge", timeout=15000)
+            # ✅ tunggu DOM saja (lebih cepat dari networkidle)
+            page.goto(url, timeout=60000, wait_until="domcontentloaded")
+
+            # ✅ kasih waktu HTMX inject data
+            page.wait_for_timeout(3000)
+
+            # ✅ selector lebih fleksibel
+            try:
+                page.wait_for_selector("div[class*='b']", timeout=30000)
+            except:
+                print("Selector tidak ketemu, lanjut ambil HTML")
+
             html = page.content()
             return html
+
         finally:
             browser.close()
