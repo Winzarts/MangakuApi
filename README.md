@@ -126,4 +126,4 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ## 📝 Catatan
 
-Untuk sementara api mati hingga waktu yang tidak di tentukan
+Untuk sementara api mati hingga waktu yang tidak di tentukan karena masalah server 😅
