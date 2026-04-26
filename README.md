@@ -123,3 +123,7 @@ Kontribusi selalu terbuka! Silakan lakukan fork repository ini dan buat pull req
 ## 📄 Lisensi
 
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+
+## 📝 Catatan
+
+Untuk sementara api mati hingga waktu yang tidak di tentukan
