@@ -1,39 +1,37 @@
 from playwright.sync_api import sync_playwright
-from config import HEADERS, TIMEOUT
 
 def get_dynamic_html(url: str) -> str:
+    """Mengambil HTML dari halaman dinamis menggunakan Playwright (headless Chromium)."""
+    
     with sync_playwright() as p:
         browser = p.chromium.launch(
             headless=True,
             args=[
+                "--disable-gpu",
                 "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu"
+                "--disable-dev-shm-usage"
             ]
         )
 
         context = browser.new_context(
-            user_agent=HEADERS["User-Agent"],
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/120.0.0.0 Safari/537.36"
+            ),
             viewport={"width": 1920, "height": 1080}
         )
 
         page = context.new_page()
 
         try:
-            # ✅ tunggu DOM saja (lebih cepat dari networkidle)
-            page.goto(url, timeout=60000, wait_until="domcontentloaded")
+            page.goto(url, timeout=15000)
 
-            # ✅ kasih waktu HTMX inject data
-            page.wait_for_timeout(3000)
-
-            # ✅ selector lebih fleksibel
-            try:
-                page.wait_for_selector("div[class*='b']", timeout=30000)
-            except:
-                print("Selector tidak ketemu, lanjut ambil HTML")
+            # Tunggu elemen seperti di Selenium
+            page.wait_for_selector("div.bge", timeout=15000)
 
             html = page.content()
-            return html
-
         finally:
             browser.close()
+
+        return html
