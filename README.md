@@ -18,7 +18,7 @@ API mangaku adalah sebuah REST API sederhana yang dibuat menggunakan Flask untuk
 - **Flask**: Web Framework.
 - **BeautifulSoup4**: HTML Parsing/Scraping.
 - **Requests**: HTTP Library.
-- **Selenium (Dynamic Scrapper)**: Untuk menangani konten yang dirender via JavaScript.
+- **Playwright**: Untuk menangani konten yang dirender via JavaScript.
 
 ## 🛠️ Instalasi
 
