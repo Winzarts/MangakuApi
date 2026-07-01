@@ -9,7 +9,8 @@ def get_dynamic_html(url: str) -> str:
             args=[
                 "--disable-gpu",
                 "--no-sandbox",
-                "--disable-dev-shm-usage"
+                "--disable-dev-shm-usage",
+                "--disable-blink-features=AutomationControlled"
             ]
         )
 
@@ -19,19 +20,24 @@ def get_dynamic_html(url: str) -> str:
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
                 "Chrome/120.0.0.0 Safari/537.36"
             ),
-            viewport={"width": 1920, "height": 1080}
+            viewport={"width": 1920, "height": 1080},
+            locale="id=ID",
+            timezone_id="Asia/Jakarta"
         )
 
         page = context.new_page()
 
+        page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+
         try:
-            page.goto(url, timeout=15000)
+            page.goto(url, timeout=15000, wait_until="domcontentloaded")
 
             # Tunggu elemen seperti di Selenium
             page.wait_for_selector("div.bge", timeout=15000)
 
             html = page.content()
         finally:
+            context.close()
             browser.close()
 
         return html
