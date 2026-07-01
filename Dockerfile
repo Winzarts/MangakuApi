@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/playwright/python:v1.42.0-jammy
 
 WORKDIR /app
 
-COPY reqs.txt requirements.txt
+COPY . .
 
 RUN pip install -r requirements.txt
 
