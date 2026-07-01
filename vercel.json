@@ -1,6 +1,6 @@
 {
   "services": {
-    "api-komik": {
+    "MangakuApi": {
       "entrypoint": "Dockerfile.vercel"
     }
   },
