@@ -1,6 +1,6 @@
 {
   "services": {
-    "MangakuApi": {
+    "mangakuapi": {
       "entrypoint": "Dockerfile.vercel"
     }
   },
