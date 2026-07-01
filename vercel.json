@@ -1,6 +1,7 @@
 {
   "services": {
     "mangakuapi": {
+      "root": ".",
       "entrypoint": "Dockerfile.vercel"
     }
   },
